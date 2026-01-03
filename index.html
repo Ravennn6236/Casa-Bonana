@@ -3,113 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CASA BONANA</title>
+    <title>CASA BONANA | Booking</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #F9FAFB; --white: #FFFFFF; --dark: #111827; --gray: #6B7280; --accent: #059669; --radius: 28px; --error: #E11D48; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; padding-bottom: 60px; color: var(--dark); overflow-x: hidden; }
+        :root { --bg: #F9FAFB; --white: #FFFFFF; --dark: #111827; --gray: #6B7280; --accent: #007DFE; --radius: 30px; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; color: var(--dark); padding-bottom: 40px; }
         .container { max-width: 450px; margin: 0 auto; padding: 20px; }
-        
-        /* CORRECTED LOGIN */
-        .login-hero { height: 40vh; background: var(--dark); border-radius: 0 0 var(--radius) var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; margin-bottom: 30px; }
-        
-        /* CARDS & LAYOUT */
-        .house-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.04); margin-bottom: 25px; border: 1px solid #F3F4F6; }
-        .house-img { width: 100%; height: 200px; object-fit: cover; }
-        .badge { display: inline-block; background: #F3F4F6; padding: 6px 12px; border-radius: 10px; font-size: 11px; font-weight: 700; margin-right: 5px; text-transform: uppercase; }
-        .pet-badge { background: #FFF1F2; color: var(--error); }
-
-        /* CALENDAR & DASHBOARD (MANAGEMENT) */
-        .calendar-box { background: var(--dark); color: white; border-radius: var(--radius); padding: 25px; margin-top: 10px; }
-        .grid-7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; text-align: center; margin-top: 15px; }
-        .day { font-size: 12px; opacity: 0.5; padding: 10px 0; border-radius: 12px; }
-        .booked { background: rgba(255,255,255,0.15); opacity: 1; font-weight: 800; }
-
-        /* UI ELEMENTS */
-        .btn { background: var(--dark); color: white; border: none; padding: 18px; width: 100%; border-radius: 20px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.2s; }
-        .btn-maps { background: #FFFFFF; color: #007DFE; border: 1px solid #007DFE; font-size: 14px; margin-top: 10px; }
+        .house-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.04); margin-bottom: 20px; border: 1px solid #F3F4F6; }
+        .card-body { padding: 20px; }
         .hidden { display: none; }
-        input { width: 100%; padding: 18px; border-radius: 18px; border: 1px solid #EEE; margin-bottom: 15px; font-size: 16px; box-sizing: border-box; }
+        
+        /* FORM ELEMENTS */
+        .setting-group { background: white; padding: 20px; border-radius: var(--radius); margin-bottom: 15px; border: 1px solid #EEE; }
+        label { display: block; font-weight: 800; font-size: 14px; margin-bottom: 10px; color: var(--gray); }
+        input[type="date"], input[type="range"] { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #DDD; font-family: inherit; }
+        .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; }
+        
+        .price-display { text-align: center; padding: 20px; background: var(--dark); color: white; border-radius: 20px; margin-top: 20px; }
+        .btn-pay { background: var(--accent); color: white; border: none; padding: 20px; width: 100%; border-radius: 20px; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 15px; }
     </style>
 </head>
 <body>
 
-<div id="login-screen">
-    <div class="login-hero">
-        <h1 style="font-size: 44px; letter-spacing: -3px; margin: 0;">CASA<br>BONANA.</h1>
-        <p style="opacity: 0.7; font-weight: 600;">Luxury Stays • Koronadal</p>
-    </div>
-    <div class="container">
-        <button class="btn" style="margin-bottom: 20px;" onclick="showScreen('guest')">Explore Our 5 Houses</button>
-        <p style="text-align: center; color: var(--gray); font-size: 12px; font-weight: 800; letter-spacing: 1px; margin-bottom: 15px;">ADMIN & STAFF ACCESS</p>
-        <input type="password" id="pin" placeholder="Enter Secure PIN">
-        <button class="btn" style="background: #334155;" onclick="handleLogin()">Login to Dashboard</button>
-    </div>
-</div>
-
-<div id="guest-screen" class="hidden">
-    <div class="container">
-        <h2 style="font-size: 32px; letter-spacing: -1px;">Our Empire</h2>
-        <div id="house-list">
-            <div class="house-card">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6191da95b8" class="house-img">
-                <div style="padding: 20px;">
-                    <span class="badge pet-badge">🐾 Pet Friendly</span>
-                    <h3 style="margin: 10px 0;">Garden Loft #1</h3>
-                    <p style="font-weight: 800; font-size: 20px; margin: 0;">₱2,800 <span style="font-weight:400; color:var(--gray); font-size:14px;">/night</span></p>
-                    <button class="btn btn-maps" onclick="window.open('https://maps.google.com')">📍 Get Directions</button>
-                    <button class="btn" style="margin-top:10px; background:#007DFE;">Book via GCash</button>
-                </div>
-            </div>
-            <p style="text-align: center; color: var(--gray);">[+ 4 More Luxury Units Listed]</p>
+<div class="container">
+    <div id="gallery-screen">
+        <h1 style="font-size: 38px; letter-spacing: -2px;">CASA BONANA.</h1>
+        <div class="house-card" onclick="openBooking('Garden Loft', 2500)">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6191da95b8?w=800" style="width:100%; height:200px; object-fit:cover;">
+            <div class="card-body"><h3>Garden Loft</h3><p>Starts at ₱2,500</p></div>
         </div>
-        <button class="btn" style="background: none; color: var(--dark);" onclick="showScreen('login')">Back to Login</button>
-    </div>
-</div>
+        </div>
 
-<div id="admin-screen" class="hidden">
-    <div class="container">
-        <h2 style="font-size: 28px;">Management Hub</h2>
-        
-        <div class="calendar-box">
-            <div style="display:flex; justify-content: space-between; align-items: center;">
-                <b>Jan 2026</b>
-                <span style="font-size: 11px; opacity: 0.6;">Syncing Airbnb iCal...</span>
+    <div id="booking-screen" class="hidden">
+        <button onclick="showScreen('gallery')" style="background:none; border:none; font-weight:800; margin-bottom:10px;">← Change House</button>
+        <h2 id="house-title">Configure Your Stay</h2>
+
+        <div class="setting-group">
+            <label>Check-in & Check-out</label>
+            <input type="date" id="checkin" onchange="calc()">
+            <input type="date" id="checkout" style="margin-top:10px;" onchange="calc()">
+        </div>
+
+        <div class="setting-group">
+            <label>How many heads? (<span id="head-count">1</span>)</label>
+            <input type="range" id="heads" min="1" max="10" value="1" oninput="document.getElementById('head-count').innerText=this.value; calc();">
+            <p style="font-size:11px; color:var(--gray); margin-top:5px;">*Additional ₱250 per head after 2 persons</p>
+        </div>
+
+        <div class="setting-group">
+            <div class="toggle-row">
+                <span>🐾 Bringing Pets? (+₱200)</span>
+                <input type="checkbox" id="opt-pet" onchange="calc()">
             </div>
-            <div class="grid-7">
-                <div class="day">M</div><div class="day">T</div><div class="day">W</div><div class="day">T</div><div class="day">F</div><div class="day">S</div><div class="day">S</div>
-                <div class="day booked">1</div><div class="day booked">2</div><div class="day booked">3</div><div class="day booked">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
-            </div>
-            <div style="margin-top: 15px; font-size: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
-                🔴 <b>Alert:</b> 2 Checkouts Today (Unit 1 & 4)
+            <div class="toggle-row" style="border-top: 1px solid #EEE; padding-top:15px; margin-top:10px;">
+                <span>🚗 Bringing a Vehicle?</span>
+                <input type="checkbox" id="opt-veh" onchange="calc()">
             </div>
         </div>
 
-        <h3 style="margin-top: 30px;">Staff Assignments</h3>
-        <div class="house-card" style="padding: 20px;">
-            <div style="display:flex; justify-content: space-between;">
-                <p><b>Maria (Cleaner)</b><br><span style="font-size: 12px; color: var(--gray);">Assign to Unit #1</span></p>
-                <button class="btn" style="width: auto; padding: 10px 15px; font-size: 12px;">Assign</button>
-            </div>
+        <div class="setting-group">
+            <label>Add-ons</label>
+            <div class="toggle-row"><span>Extra Bedding (+₱300)</span><input type="checkbox" id="opt-bed" onchange="calc()"></div>
+            <div class="toggle-row"><span>Extra Pillows (+₱100)</span><input type="checkbox" id="opt-pill" onchange="calc()"></div>
         </div>
 
-        <button class="btn" style="background: #64748b; margin-top: 20px;" onclick="showScreen('login')">Logout</button>
+        <div class="price-display">
+            <span style="opacity:0.7; font-size:14px;">Total Amount</span>
+            <h1 style="margin:5px 0;">₱<span id="total-val">0</span></h1>
+        </div>
+
+        <button class="btn-pay" onclick="alert('Proceeding to GCash...')">Confirm & Pay</button>
     </div>
 </div>
 
 <script>
+    let basePrice = 0;
+
     function showScreen(s) {
-        document.getElementById('login-screen').classList.add('hidden');
-        document.getElementById('guest-screen').classList.add('hidden');
-        document.getElementById('admin-screen').classList.add('hidden');
+        document.getElementById('gallery-screen').classList.add('hidden');
+        document.getElementById('booking-screen').classList.add('hidden');
         document.getElementById(s + '-screen').classList.remove('hidden');
-        window.scrollTo(0,0);
     }
-    function handleLogin() {
-        const p = document.getElementById('pin').value;
-        if(p === '8888') showScreen('admin'); // Management
-        else if(p === '1234') showScreen('admin'); // Staff
-        else alert('Invalid PIN');
+
+    function openBooking(name, price) {
+        basePrice = price;
+        document.getElementById('house-title').innerText = name;
+        showScreen('booking');
+        calc();
+    }
+
+    function calc() {
+        let total = basePrice;
+        
+        // 1. Calculate Nights
+        const d1 = new Date(document.getElementById('checkin').value);
+        const d2 = new Date(document.getElementById('checkout').value);
+        let nights = 1;
+        if (d2 > d1) {
+            nights = (d2 - d1) / (1000 * 60 * 60 * 24);
+        }
+        total = total * nights;
+
+        // 2. Extra Heads (₱250 per head above 2)
+        const heads = document.getElementById('heads').value;
+        if (heads > 2) {
+            total += (heads - 2) * 250 * nights;
+        }
+
+        // 3. One-time Addons
+        if (document.getElementById('opt-pet').checked) total += 200;
+        if (document.getElementById('opt-bed').checked) total += 300;
+        if (document.getElementById('opt-pill').checked) total += 100;
+        
+        // Vehicle doesn't cost extra but we track it
+        const hasVehicle = document.getElementById('opt-veh').checked;
+
+        document.getElementById('total-val').innerText = total.toLocaleString();
     }
 </script>
 </body>
