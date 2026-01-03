@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salamat Business Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F8F9FA;
+            --white: #FFFFFF;
+            --dark: #1A1A1A;
+            --gray: #666666;
+            --accent: #2D5A27; /* Modern green flair */
+            --radius: 24px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+        }
+
+        .container { max-width: 450px; margin: 0 auto; padding: 20px; padding-bottom: 100px; }
+
+        /* Card Styling to match the images */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+
+        .card-content { padding: 20px; }
+
+        .price-tag { font-weight: 800; font-size: 20px; color: var(--dark); }
+        .unit-label { font-size: 14px; color: var(--gray); font-weight: 400; }
+
+        /* Inputs & Buttons */
+        .btn {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 18px;
+            width: 100%;
+            border-radius: 18px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-gcash { background: #007DFE; } /* GCash Blue */
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .hidden { display: none; }
+
+        /* Header Flair */
+        .header { padding: 20px 0; }
+        .header h1 { font-size: 24px; font-weight: 800; margin: 0; }
+        .header p { color: var(--gray); margin: 5px 0; }
+
+        /* Status Badge */
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #E8F5E9;
+            color: #2E7D32;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div id="login-screen">
+        <div class="header">
+            <h1>Salamat!</h1>
+            <p>Welcome to our family homes & laundry.</p>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/600x400" class="card-img" alt="Luxury House">
+            <div class="card-content">
+                <button class="btn" onclick="showScreen('guest')">Explore as Guest</button>
+            </div>
+        </div>
+        <p style="text-align: center; color: #999; font-size: 14px;">--- Team Access ---</p>
+        <input type="password" id="pin" placeholder="Enter PIN">
+        <button class="btn" style="background:#333;" onclick="handleLogin()">Team Portal</button>
+    </div>
+
+    <div id="guest-screen" class="hidden">
+        <div class="header">
+            <h1>Our Stays</h1>
+            <p>Available in Koronadal</p>
+        </div>
+        
+        <div class="card">
+            <img src="https://via.placeholder.com/600x400" class="card-img" alt="The Loft">
+            <div class="card-content">
+                <div class="badge">Pet Friendly</div>
+                <h3>The Modern Loft</h3>
+                <div class="price-tag">₱2,500 <span class="unit-label">/ night</span></div>
+                <button class="btn btn-gcash" onclick="alert('Proceeding to GCash...')">Book with GCash</button>
+            </div>
+        </div>
+
+        <div class="card" style="border-left: 5px solid var(--accent);">
+            <div class="card-content">
+                <h3>🧺 My Laundry</h3>
+                <p id="laundry-status" style="color:var(--accent); font-weight:600;">Status: Ready for Pickup!</p>
+                <button class="btn" style="background:none; color:var(--dark); border: 1px solid #ddd;" onclick="showScreen('login')">Back to Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="staff-screen" class="hidden">
+        <div class="header">
+            <h1>Staff Desk</h1>
+            <p>New Laundry Intake</p>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <input type="text" placeholder="Customer Name">
+                <input type="number" id="w-input" placeholder="Weight in kg">
+                <div class="price-tag">Total: ₱<span id="price-total">0</span></div>
+                <button class="btn" onclick="alert('Order Saved!')">Finish & Print QR</button>
+            </div>
+        </div>
+        <button class="btn" style="background:#666;" onclick="showScreen('login')">Logout</button>
+    </div>
+
+    <div id="admin-screen" class="hidden">
+        <div class="header">
+            <h1>Command Center</h1>
+            <p>Overall Business Health</p>
+        </div>
+        <div class="card" style="background: var(--dark); color: white;">
+            <div class="card-content">
+                <p style="margin:0; opacity:0.7;">Today's Revenue</p>
+                <h1 style="font-size: 40px; margin: 10px 0;">₱15,240</h1>
+                <div class="badge" style="background: #2D5A27; color: white;">+12% vs Yesterday</div>
+            </div>
+        </div>
+        <h3>Staff Activity</h3>
+        <div class="card">
+            <div class="card-content">
+                <p><b>Maria</b> is cleaning <b>Loft #1</b></p>
+                <p><b>Jun</b> processed <b>5 Laundry Orders</b></p>
+            </div>
+        </div>
+        <button class="btn" style="background:#666;" onclick="showScreen('login')">Logout</button>
+    </div>
+
+</div>
+
+<script>
+    function showScreen(screen) {
+        document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+        document.getElementById(screen + '-screen').classList.remove('hidden');
+        window.scrollTo(0,0);
+    }
+
+    function handleLogin() {
+        const pin = document.getElementById('pin').value;
+        if(pin === "1234") showScreen('staff');
+        else if(pin === "8888") showScreen('admin');
+        else alert("Wrong PIN. Try again!");
+    }
+
+    document.getElementById('w-input').addEventListener('input', function(e) {
+        document.getElementById('price-total').innerText = e.target.value * 35;
+    });
+</script>
+
+</body>
+</html>
