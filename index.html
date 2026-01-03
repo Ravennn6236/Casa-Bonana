@@ -6,121 +6,109 @@
     <title>CASA BONANA</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #F9FAFB; --white: #FFFFFF; --dark: #111827; --gray: #6B7280; --accent: #059669; --radius: 28px; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; padding-bottom: 50px; color: var(--dark); }
+        :root { --bg: #F9FAFB; --white: #FFFFFF; --dark: #111827; --gray: #6B7280; --accent: #059669; --radius: 28px; --error: #E11D48; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; padding-bottom: 60px; color: var(--dark); overflow-x: hidden; }
         .container { max-width: 450px; margin: 0 auto; padding: 20px; }
         
-        /* PROPERTY CARDS (Multi-House Structure) */
-        .house-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.04); margin-bottom: 25px; border: 1px solid #F3F4F6; }
-        .house-img { width: 100%; height: 230px; object-fit: cover; background: #EEE; }
-        .badge { display: inline-block; background: #F3F4F6; padding: 6px 12px; border-radius: 10px; font-size: 12px; font-weight: 600; margin-right: 5px; color: var(--gray); }
-        .pet-badge { background: #FFF1F2; color: #E11D48; }
+        /* CORRECTED LOGIN */
+        .login-hero { height: 40vh; background: var(--dark); border-radius: 0 0 var(--radius) var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; margin-bottom: 30px; }
         
-        /* THE "LARGE ASS CALENDAR" (Mom's View) */
-        .calendar-box { background: var(--dark); color: white; border-radius: var(--radius); padding: 25px; margin-top: 20px; }
-        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .grid-7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; text-align: center; }
-        .day-label { font-size: 12px; opacity: 0.5; text-transform: uppercase; }
-        .day-num { font-size: 14px; padding: 10px 0; border-radius: 12px; position: relative; }
-        .day-num.booked { background: rgba(255,255,255,0.1); font-weight: 800; }
-        .day-num.event::after { content: ''; position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; background: #FF385C; border-radius: 50%; }
+        /* CARDS & LAYOUT */
+        .house-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.04); margin-bottom: 25px; border: 1px solid #F3F4F6; }
+        .house-img { width: 100%; height: 200px; object-fit: cover; }
+        .badge { display: inline-block; background: #F3F4F6; padding: 6px 12px; border-radius: 10px; font-size: 11px; font-weight: 700; margin-right: 5px; text-transform: uppercase; }
+        .pet-badge { background: #FFF1F2; color: var(--error); }
 
-        /* STAFF ASSIGNMENT TABLE */
-        .staff-list { margin-top: 20px; }
-        .staff-card { display: flex; align-items: center; justify-content: space-between; background: white; padding: 15px; border-radius: 20px; margin-bottom: 10px; border: 1px solid #EEE; }
-        .status-pill { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; }
+        /* CALENDAR & DASHBOARD (MANAGEMENT) */
+        .calendar-box { background: var(--dark); color: white; border-radius: var(--radius); padding: 25px; margin-top: 10px; }
+        .grid-7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; text-align: center; margin-top: 15px; }
+        .day { font-size: 12px; opacity: 0.5; padding: 10px 0; border-radius: 12px; }
+        .booked { background: rgba(255,255,255,0.15); opacity: 1; font-weight: 800; }
 
-        /* NAV & BUTTONS */
-        .btn { background: var(--dark); color: white; border: none; padding: 18px; width: 100%; border-radius: 20px; font-size: 16px; font-weight: 700; cursor: pointer; }
+        /* UI ELEMENTS */
+        .btn { background: var(--dark); color: white; border: none; padding: 18px; width: 100%; border-radius: 20px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-maps { background: #FFFFFF; color: #007DFE; border: 1px solid #007DFE; font-size: 14px; margin-top: 10px; }
         .hidden { display: none; }
+        input { width: 100%; padding: 18px; border-radius: 18px; border: 1px solid #EEE; margin-bottom: 15px; font-size: 16px; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div id="login-screen">
-        <h1 style="margin-top:50px; font-size: 40px; letter-spacing: -2px;">CASA<br>BONANA.</h1>
-        <p style="color: var(--gray); margin-bottom: 40px;">Manage Stays & Laundry</p>
-        
-        <div class="house-card" style="padding: 25px;">
-            <input type="password" id="pin" placeholder="Enter Team PIN" style="width:100%; padding:18px; border-radius:18px; border:1px solid #EEE; margin-bottom:15px; font-size:16px;">
-            <button class="btn" onclick="handleLogin()">Login</button>
-            <button class="btn" style="background:none; color:var(--dark); margin-top:10px;" onclick="showScreen('guest')">Enter as Guest</button>
-        </div>
+<div id="login-screen">
+    <div class="login-hero">
+        <h1 style="font-size: 44px; letter-spacing: -3px; margin: 0;">CASA<br>BONANA.</h1>
+        <p style="opacity: 0.7; font-weight: 600;">Luxury Stays • Koronadal</p>
     </div>
-
-    <div id="guest-screen" class="hidden">
-        <h2 style="font-size: 32px;">Our Homes</h2>
-        <div class="house-card">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6191da95b8" class="house-img">
-            <div style="padding: 20px;">
-                <span class="badge pet-badge">🐾 Pet Friendly</span>
-                <span class="badge">📶 High-Speed WiFi</span>
-                <h3 style="margin: 12px 0 5px 0;">Garden Loft Koronadal</h3>
-                <p style="color:var(--gray); font-size: 14px; margin-bottom: 15px;">2 Beds • 1 Bath • Kitchen</p>
-                <p style="font-weight: 800; font-size: 20px; margin: 0;">₱2,800 <span style="font-weight:400; color:var(--gray); font-size:14px;">/night</span></p>
-                <button class="btn" style="margin-top:15px; background:#007DFE;" onclick="alert('Opening GCash Gateway...')">Book with GCash</button>
-            </div>
-        </div>
-        <div class="house-card">
-            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750" class="house-img">
-            <div style="padding: 20px;">
-                <span class="badge">🏊 Pool Access</span>
-                <h3 style="margin: 12px 0 5px 0;">Executive Villa</h3>
-                <p style="font-weight: 800; font-size: 20px; margin: 0;">₱4,500 <span style="font-weight:400; color:var(--gray); font-size:14px;">/night</span></p>
-                <button class="btn" style="margin-top:15px; background:#007DFE;">Book with GCash</button>
-            </div>
-        </div>
+    <div class="container">
+        <button class="btn" style="margin-bottom: 20px;" onclick="showScreen('guest')">Explore Our 5 Houses</button>
+        <p style="text-align: center; color: var(--gray); font-size: 12px; font-weight: 800; letter-spacing: 1px; margin-bottom: 15px;">ADMIN & STAFF ACCESS</p>
+        <input type="password" id="pin" placeholder="Enter Secure PIN">
+        <button class="btn" style="background: #334155;" onclick="handleLogin()">Login to Dashboard</button>
     </div>
+</div>
 
-    <div id="admin-screen" class="hidden">
-        <h2 style="font-size: 28px;">Dashboard</h2>
+<div id="guest-screen" class="hidden">
+    <div class="container">
+        <h2 style="font-size: 32px; letter-spacing: -1px;">Our Empire</h2>
+        <div id="house-list">
+            <div class="house-card">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6191da95b8" class="house-img">
+                <div style="padding: 20px;">
+                    <span class="badge pet-badge">🐾 Pet Friendly</span>
+                    <h3 style="margin: 10px 0;">Garden Loft #1</h3>
+                    <p style="font-weight: 800; font-size: 20px; margin: 0;">₱2,800 <span style="font-weight:400; color:var(--gray); font-size:14px;">/night</span></p>
+                    <button class="btn btn-maps" onclick="window.open('https://maps.google.com')">📍 Get Directions</button>
+                    <button class="btn" style="margin-top:10px; background:#007DFE;">Book via GCash</button>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--gray);">[+ 4 More Luxury Units Listed]</p>
+        </div>
+        <button class="btn" style="background: none; color: var(--dark);" onclick="showScreen('login')">Back to Login</button>
+    </div>
+</div>
+
+<div id="admin-screen" class="hidden">
+    <div class="container">
+        <h2 style="font-size: 28px;">Management Hub</h2>
         
         <div class="calendar-box">
-            <div class="calendar-header">
-                <span style="font-weight:800;">January 2026</span>
-                <span style="font-size:12px; opacity:0.6;">Syncing Airbnb...</span>
+            <div style="display:flex; justify-content: space-between; align-items: center;">
+                <b>Jan 2026</b>
+                <span style="font-size: 11px; opacity: 0.6;">Syncing Airbnb iCal...</span>
             </div>
             <div class="grid-7">
-                <div class="day-label">M</div><div class="day-label">T</div><div class="day-label">W</div><div class="day-label">T</div><div class="day-label">F</div><div class="day-label">S</div><div class="day-label">S</div>
-                <div class="day-num booked">1</div><div class="day-num booked">2</div><div class="day-num booked">3</div>
-                <div class="day-num booked event">4</div><div class="day-num">5</div><div class="day-num">6</div><div class="day-num">7</div>
+                <div class="day">M</div><div class="day">T</div><div class="day">W</div><div class="day">T</div><div class="day">F</div><div class="day">S</div><div class="day">S</div>
+                <div class="day booked">1</div><div class="day booked">2</div><div class="day booked">3</div><div class="day booked">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
             </div>
-            <div style="margin-top:20px; font-size:12px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-                <b>Checkout Today:</b> Loft #1 (11:00 AM)
+            <div style="margin-top: 15px; font-size: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                🔴 <b>Alert:</b> 2 Checkouts Today (Unit 1 & 4)
             </div>
         </div>
 
-        <h3 style="margin-top:30px;">Staff Assignment</h3>
-        <div class="staff-list">
-            <div class="staff-card">
-                <div><b>Maria</b><br><span style="font-size:12px; color:var(--gray);">Loft #1 Cleaning</span></div>
-                <span class="status-pill" style="background:#ECFDF5; color:#065F46;">ACTIVE</span>
-            </div>
-            <div class="staff-card">
-                <div><b>Jun</b><br><span style="font-size:12px; color:var(--gray);">Laundromat B</span></div>
-                <span class="status-pill" style="background:#FFFBEB; color:#92400E;">BUSY</span>
+        <h3 style="margin-top: 30px;">Staff Assignments</h3>
+        <div class="house-card" style="padding: 20px;">
+            <div style="display:flex; justify-content: space-between;">
+                <p><b>Maria (Cleaner)</b><br><span style="font-size: 12px; color: var(--gray);">Assign to Unit #1</span></p>
+                <button class="btn" style="width: auto; padding: 10px 15px; font-size: 12px;">Assign</button>
             </div>
         </div>
-        
-        <div class="house-card" style="background:var(--dark); color:white; padding:25px; margin-top:20px;">
-            <p style="margin:0; opacity:0.6; font-size:13px;">Total Revenue (₱)</p>
-            <h1 style="font-size: 36px; margin: 5px 0;">18,240</h1>
-        </div>
-        <button class="btn" style="margin-top:20px; background:#666;" onclick="showScreen('login')">Logout</button>
+
+        <button class="btn" style="background: #64748b; margin-top: 20px;" onclick="showScreen('login')">Logout</button>
     </div>
 </div>
 
 <script>
     function showScreen(s) {
-        document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('guest-screen').classList.add('hidden');
+        document.getElementById('admin-screen').classList.add('hidden');
         document.getElementById(s + '-screen').classList.remove('hidden');
         window.scrollTo(0,0);
     }
     function handleLogin() {
         const p = document.getElementById('pin').value;
-        if(p === '8888') showScreen('admin');
-        else if(p === '2026') showScreen('admin'); // Set to 'staff' when ready
+        if(p === '8888') showScreen('admin'); // Management
+        else if(p === '1234') showScreen('admin'); // Staff
         else alert('Invalid PIN');
     }
 </script>
